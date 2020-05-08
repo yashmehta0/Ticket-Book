@@ -1,0 +1,20 @@
+pipeline {
+    agent node
+    
+    stages{
+        stage('Build'){
+            steps{
+                bat 'mvn clean install'
+            }
+        }
+        
+        stage('Run'){
+            steps{
+                bat '''
+                    cd target/
+                    java -jar ticket-0.0.1-SNAPSHOT.jar --httpPort=8080
+                '''
+            }
+        }
+    }
+}
